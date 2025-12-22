@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kontak - Rayy Services</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root{
+      --bg: url('https://files.catbox.moe/q9e70e.jpg');
+      --pfp: url('https://files.catbox.moe/lenrjk.jpg');
+      --c: #00aaff;
+      --c2:#7c5cff;
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      font-family:"Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:#05060a;
+      color:#fff;
+      min-height:100vh;
+      padding:20px;
+      overflow-x:hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      position:relative;
+      isolation:isolate;
+      display:flex;
+      justify-content:center;
+    }
+    body::before{
+      content:"";
+      position:fixed; inset:0;
+      background:
+        radial-gradient(900px 520px at 20% 10%, rgba(0,170,255,.22), transparent 55%),
+        radial-gradient(900px 520px at 80% 90%, rgba(124,92,255,.18), transparent 55%),
+        linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.78)),
+        var(--bg);
+      background-size:cover;
+      background-position:center;
+      background-repeat:no-repeat;
+      z-index:-2;
+    }
+    body::after{
+      content:"";
+      position:fixed; inset:0;
+      background: linear-gradient(135deg, rgba(0,0,0,.25), rgba(0,0,0,.70));
+      z-index:-1;
+    }
+
+    .wrap{max-width:920px;width:100%}
+
+    .shell{
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: 26px;
+      padding: 22px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 18px 60px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.08);
+      position:relative;
+      overflow:hidden;
+      margin-top: 10px;
+    }
+    .shell::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(520px 260px at 15% 0%, rgba(0,170,255,.14), transparent 62%),
+        radial-gradient(520px 260px at 85% 100%, rgba(124,92,255,.12), transparent 62%);
+      pointer-events:none;
+      opacity:.9;
+    }
+    .shell > *{position:relative; z-index:1}
+
+    .head{text-align:center;padding:8px 0 14px}
+    .pfp{
+      width:116px;height:116px;border-radius:999px;
+      margin:0 auto 14px;
+      border: 2px solid rgba(255,255,255,.14);
+      outline: 2px solid rgba(0,170,255,.35);
+      outline-offset: 3px;
+      background-image: var(--pfp);
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 18px 50px rgba(0,0,0,.55);
+    }
+    .title{
+      font-size:2.6rem;font-weight:900;letter-spacing:.02em;
+      background: linear-gradient(45deg,#fff, var(--c));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    }
+    .sub{
+      margin:10px auto 0;
+      max-width:760px;
+      color: rgba(230,240,255,.78);
+      line-height:1.7;
+      font-size:1.02rem;
+    }
+
+    .nav{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      padding:12px 16px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      color:#fff;text-decoration:none;
+      font-weight:800;font-size:.98rem;
+      transition:transform .18s ease, background .18s ease, border-color .18s ease;
+      backdrop-filter: blur(10px);
+    }
+    .btn:hover{background: rgba(0,170,255,.16); border-color: rgba(0,170,255,.55); transform: translateY(-2px)}
+    .btn.primary{border-color: rgba(0,170,255,.60); background: rgba(0,170,255,.10)}
+
+    .grid{margin-top:18px;display:grid;grid-template-columns: 1fr 1fr;gap:16px}
+    .card{
+      background: rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:22px;
+      padding:18px;
+      backdrop-filter: blur(12px);
+      position:relative;
+      overflow:hidden;
+      transform: translateY(8px);
+      opacity:0;
+      animation: in .55s ease forwards;
+    }
+    .card::after{
+      content:"";
+      position:absolute;inset:-2px;
+      background: radial-gradient(520px 240px at 20% 0%, rgba(0,170,255,.14), transparent 62%);
+      opacity:.9;
+      pointer-events:none;
+    }
+    .card > *{position:relative;z-index:1}
+    @keyframes in{to{transform: translateY(0); opacity:1;}}
+
+    .h3{font-size:1.25rem;font-weight:900;margin-bottom:10px;letter-spacing:.01em}
+    .txt{color: rgba(230,240,255,.78);line-height:1.75;font-size:.98rem}
+
+    .chipRow{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+    .chip{
+      flex: 1 1 auto;
+      display:flex;align-items:center;justify-content:center;gap:10px;
+      padding:12px 14px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.35);
+      text-decoration:none;
+      color:#fff;
+      font-weight:800;
+      transition:transform .18s ease, border-color .18s ease, background .18s ease;
+    }
+    .chip:hover{transform: translateY(-2px); border-color: rgba(0,170,255,.60); background: rgba(0,170,255,.12)}
+    .chip i{color: var(--c)}
+
+    .copyRow{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .copyBox{
+      flex:1 1 240px;
+      padding:12px 14px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.35);
+      color: rgba(230,240,255,.88);
+      font-weight:700;
+      user-select:all;
+    }
+    .copyBtn{
+      flex: 0 0 auto;
+      padding:12px 16px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      color:#fff;
+      font-weight:900;
+      cursor:pointer;
+      transition:transform .18s ease, background .18s ease, border-color .18s ease;
+    }
+    .copyBtn:hover{background: rgba(0,170,255,.16); border-color: rgba(0,170,255,.55); transform: translateY(-2px)}
+
+    .footer{
+      margin-top:14px;
+      text-align:center;
+      color: rgba(220,240,255,.55);
+      font-size:.95rem;
+      padding: 10px 0 6px;
+    }
+
+    @media (max-width: 900px){ .grid{grid-template-columns:1fr} }
+    @media (max-width: 768px){ body{padding:16px} .title{font-size:2.2rem} .pfp{width:104px;height:104px} }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="shell">
+      <div class="head">
+        <div class="pfp" aria-label="Foto profil"></div>
+        <div class="title">Kontak</div>
+        <div class="sub">
+          Kontak Admin
+        </div>
+
+        <div class="nav">
+          <a class="btn" href="../index.html"><i class="fa-solid fa-house"></i> Home</a>
+          <a class="btn" href="produk.html"><i class="fa-solid fa-cart-shopping"></i> Katalog</a>
+          <a class="btn" href="order.html"><i class="fa-solid fa-bag-shopping"></i> Order</a>
+          <a class="btn" href="pembayaran.html"><i class="fa-solid fa-qrcode"></i> Pembayaran</a>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="card" style="animation-delay: 40ms;">
+          <div class="h3"><i class="fa-brands fa-whatsapp" style="color:var(--c);margin-right:10px"></i> WhatsApp</div>
+          <div class="txt">Chat langsung untuk tanya harga, konsultasi, atau order.</div>
+          <div class="chipRow">
+            <a class="chip" href="https://wa.me/6283890074416" target="_blank" rel="noreferrer"><i class="fa-solid fa-comment-dots"></i> Chat WA</a>
+            <a class="chip" href="https://wa.me/6283890074416?text=Halo%20Rayy%20Services%2C%20saya%20mau%20tanya%20layanan." target="_blank" rel="noreferrer"><i class="fa-solid fa-bolt"></i> Template Pesan</a>
+          </div>
+
+          <div class="copyRow">
+            <div class="copyBox" id="wa">+62 838-9007-4416</div>
+            <button class="copyBtn" data-copy="#wa"><i class="fa-solid fa-copy"></i> Copy</button>
+          </div>
+        </div>
+
+        <div class="card" style="animation-delay: 90ms;">
+          <div class="h3"><i class="fa-brands fa-telegram" style="color:var(--c);margin-right:10px"></i> Telegram</div>
+          <div class="txt">Lebih nyaman diskusi detail? Telegram aja.</div>
+          <div class="chipRow">
+            <a class="chip" href="https://t.me/RayyAckerman" target="_blank" rel="noreferrer"><i class="fa-solid fa-paper-plane"></i> Open Chat</a>
+            <a class="chip" href="https://t.me/RayyAckerman" target="_blank" rel="noreferrer"><i class="fa-solid fa-user"></i> @RayyAckerman</a>
+          </div>
+
+          <div class="copyRow">
+            <div class="copyBox" id="tg">@RayyAckerman</div>
+            <button class="copyBtn" data-copy="#tg"><i class="fa-solid fa-copy"></i> Copy</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">Rayy Services © <span id="y"></span> • Fast response • Support after sales</div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    async function copyText(text){
+      try{
+        await navigator.clipboard.writeText(text);
+        return true;
+      }catch(e){
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        const ok = document.execCommand('copy');
+        ta.remove();
+        return ok;
+      }
+    }
+
+    document.querySelectorAll('[data-copy]').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const target = document.querySelector(btn.getAttribute('data-copy'));
+        const txt = (target?.textContent || '').trim();
+        const ok = await copyText(txt);
+        btn.innerHTML = ok ? '<i class="fa-solid fa-check"></i> Copied' : '<i class="fa-solid fa-triangle-exclamation"></i> Gagal';
+        setTimeout(() => btn.innerHTML = '<i class="fa-solid fa-copy"></i> Copy', 1200);
+      });
+    });
+  </script>
+</body>
+</html>

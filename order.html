@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Order - Rayy Services</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root{
+      --bg: url('https://files.catbox.moe/q9e70e.jpg');
+      --pfp: url('https://files.catbox.moe/lenrjk.jpg');
+      --c:#00aaff;
+      --c2:#7c5cff;
+    }
+
+    *{margin:0;padding:0;box-sizing:border-box}
+    html,body{height:100%}
+
+    body{
+      font-family:"Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:#05060a;
+      color:#fff;
+      min-height:100vh;
+      padding:18px;
+      display:flex;
+      justify-content:center;
+      overflow-x:hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      position:relative;
+      isolation:isolate;
+    }
+    body::before{
+      content:"";
+      position:fixed; inset:0;
+      background:
+        radial-gradient(900px 520px at 20% 10%, rgba(0,170,255,.22), transparent 55%),
+        radial-gradient(900px 520px at 80% 90%, rgba(124,92,255,.18), transparent 55%),
+        linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.78)),
+        var(--bg);
+      background-size: cover;
+      background-position: center;
+      background-repeat:no-repeat;
+      z-index:-2;
+    }
+    body::after{
+      content:"";
+      position:fixed; inset:0;
+      background: linear-gradient(135deg, rgba(0,0,0,.15), rgba(0,0,0,.65));
+      z-index:-1;
+    }
+
+    .wrap{max-width:980px;width:100%}
+
+    .shell{
+      background: rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:26px;
+      padding:22px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 18px 60px rgba(0,0,0,.45);
+      position:relative;
+      overflow:hidden;
+    }
+    .shell::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(520px 260px at 15% 0%, rgba(0,170,255,.14), transparent 62%),
+        radial-gradient(520px 260px at 85% 100%, rgba(124,92,255,.10), transparent 62%);
+      opacity:.9;
+      pointer-events:none;
+    }
+    .shell > *{position:relative; z-index:1}
+
+    .head{text-align:center;padding:6px 0 18px}
+    .pfp{
+      width:110px;height:110px;border-radius:999px;
+      margin:0 auto 12px;
+      background-image: var(--pfp);
+      background-size:cover;
+      background-position:center;
+      border:2px solid rgba(255,255,255,.18);
+      box-shadow: 0 0 0 3px rgba(0,170,255,.18), 0 18px 45px rgba(0,0,0,.45);
+    }
+    .title{
+      font-size:2.5rem;font-weight:900;letter-spacing:.04em;
+      background: linear-gradient(45deg,#fff,var(--c));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      margin-bottom:8px;
+    }
+    .sub{
+      margin: 0 auto;
+      max-width:760px;
+      color: rgba(230,240,255,.80);
+      line-height:1.75;
+      font-size:1.02rem;
+    }
+
+    .nav{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      padding:12px 16px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      color:#fff;text-decoration:none;
+      font-weight:800;
+      transition:transform .18s ease, background .18s ease, border-color .18s ease;
+      backdrop-filter: blur(10px);
+      cursor:pointer;
+      user-select:none;
+    }
+    .btn:hover{background: rgba(0,170,255,.16); border-color: rgba(0,170,255,.55); transform: translateY(-2px)}
+    .btn.primary{border-color: rgba(0,170,255,.65); background: rgba(0,170,255,.10)}
+
+    .grid{margin-top:18px;display:grid;grid-template-columns: 1fr 1fr;gap:16px}
+
+    .card{
+      background: rgba(0,0,0,.36);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:22px;
+      padding:18px;
+      backdrop-filter: blur(10px);
+      position:relative;
+      overflow:hidden;
+      min-height: 320px;
+    }
+    .card::after{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(520px 240px at 20% 0%, rgba(0,170,255,.14), transparent 62%);
+      opacity:.9;
+      pointer-events:none;
+    }
+    .card > *{position:relative; z-index:1}
+
+    label{display:block;margin:10px 0 8px;color:rgba(230,240,255,.78);font-weight:800}
+    input,select,textarea{
+      width:100%;
+      padding:12px 14px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.45);
+      color:#fff;
+      outline:none;
+      font-size:1rem;
+    }
+    input:focus,select:focus,textarea:focus{border-color: rgba(0,170,255,.55); box-shadow: 0 0 0 3px rgba(0,170,255,.12)}
+    textarea{min-height:120px;resize:vertical}
+
+    .hint{margin-top:10px;color:rgba(230,240,255,.70);line-height:1.7;font-size:.95rem}
+
+    .code{
+      margin-top:12px;
+      padding:12px 14px;
+      border-radius:16px;
+      border:1px dashed rgba(255,255,255,.22);
+      background: rgba(255,255,255,.03);
+      color: rgba(230,240,255,.82);
+      line-height:1.7;
+      font-size:.95rem;
+    }
+
+    .footer{
+      margin-top:14px;
+      text-align:center;
+      color: rgba(220,240,255,.55);
+      font-size:.95rem;
+      padding: 10px 0 6px;
+    }
+
+    @media (max-width: 900px){ .grid{grid-template-columns:1fr} }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="shell">
+      <div class="head">
+        <div class="pfp" aria-label="Foto profil"></div>
+        <div class="title">Order</div>
+        <div class="sub">
+          Isi form untuk bikin <b>kode order</b> lalu otomatis dikirim ke WhatsApp.
+          Kode ini bikin komunikasi & update progres jadi lebih rapi.
+        </div>
+
+        <div class="nav">
+          <a class="btn" href="../index.html"><i class="fa-solid fa-house"></i> Home</a>
+          <a class="btn" href="produk.html"><i class="fa-solid fa-cart-shopping"></i> Katalog</a>
+          <a class="btn" href="pembayaran.html"><i class="fa-solid fa-qrcode"></i> Pembayaran</a>
+          <a class="btn" href="kontak.html"><i class="fa-solid fa-address-card"></i> Kontak</a>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <label>Nama / Username</label>
+          <input id="nama" placeholder="contoh: Rayy / @username" autocomplete="name" />
+
+          <label>Produk / Layanan</label>
+          <select id="produk">
+            <option value="Panel Pterodactyl">Panel Pterodactyl</option>
+            <option value="Akun AI Premium">Akun AI Premium</option>
+            <option value="Shortlink + Analytics">Shortlink + Analytics</option>
+            <option value="Jasa Pembuatan Bot">Jasa Pembuatan Bot</option>
+            <option value="Jasa Pembuatan Website">Jasa Pembuatan Website</option>
+            <option value="Setup VPS & Maintenance">Setup VPS & Maintenance</option>
+          </select>
+
+          <label>Metode Contact</label>
+          <select id="via">
+            <option value="WhatsApp">WhatsApp</option>
+            <option value="Telegram">Telegram</option>
+          </select>
+
+          <label>Catatan Singkat</label>
+          <textarea id="catatan" placeholder="Tulis kebutuhan kamu (singkat tapi jelas)"></textarea>
+
+          <button class="btn primary" id="kirim"><i class="fa-solid fa-paper-plane"></i> Buat Kode & Kirim</button>
+          <div class="hint">Tip: jelasin kebutuhan + budget range biar respon lebih cepat.</div>
+        </div>
+
+        <div class="card">
+          <div class="sub" style="font-size:1.05rem; font-weight:800; color:#fff; margin-bottom:10px;">Contoh format kode</div>
+          <div class="code" id="preview">
+            Kode akan muncul di sini setelah kamu isi form.
+          </div>
+
+          <div class="hint" style="margin-top:14px;">
+            Setelah terkirim, admin bakal balas untuk konfirmasi detail (harga, durasi, dan estimasi pengerjaan).
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">Rayy Services © <span id="y"></span> • Fast response • Support after sales</div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    function pad(n){ return (n<10? '0':'') + n; }
+    function makeCode(){
+      const d = new Date();
+      const base = `${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}-${pad(d.getHours())}${pad(d.getMinutes())}${pad(d.getSeconds())}`;
+      const rnd = Math.random().toString(16).slice(2,6).toUpperCase();
+      return `RAYY-${base}-${rnd}`;
+    }
+
+    const nama = document.getElementById('nama');
+    const produk = document.getElementById('produk');
+    const via = document.getElementById('via');
+    const catatan = document.getElementById('catatan');
+    const preview = document.getElementById('preview');
+
+    function refreshPreview(){
+      const code = makeCode();
+      const txt =
+`Kode Order: ${code}\nNama: ${nama.value || '-'}\nProduk: ${produk.value}\nVia: ${via.value}\nCatatan: ${catatan.value || '-'}\n\nMohon diproses ya kak 🙏`;
+      preview.textContent = txt;
+      return {code, txt};
+    }
+
+    ['input','change'].forEach(ev => {
+      nama.addEventListener(ev, refreshPreview);
+      produk.addEventListener(ev, refreshPreview);
+      via.addEventListener(ev, refreshPreview);
+      catatan.addEventListener(ev, refreshPreview);
+    });
+
+    document.getElementById('kirim').addEventListener('click', () => {
+      const {txt} = refreshPreview();
+      const wa = '6283890074416';
+      const url = `https://wa.me/${wa}?text=${encodeURIComponent(txt)}`;
+      window.open(url, '_blank', 'noreferrer');
+    });
+
+    // initial preview
+    refreshPreview();
+  </script>
+</body>
+</html>

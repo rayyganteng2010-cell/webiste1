@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pembayaran - Rayy Services</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root{
+      --bg: url('https://files.catbox.moe/q9e70e.jpg');
+      --pfp: url('https://files.catbox.moe/lenrjk.jpg');
+      --c:#00aaff;
+      --c2:#7c5cff;
+      --text: rgba(230,240,255,.82);
+    }
+
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{
+      font-family:"Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:#fff;
+      min-height:100vh;
+      padding:20px;
+      display:grid;
+      place-items:center;
+      overflow-x:hidden;
+      background:#05060a;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      position:relative;
+      isolation:isolate;
+    }
+    body::before{
+      content:"";
+      position:fixed; inset:0;
+      background:
+        radial-gradient(900px 520px at 20% 10%, rgba(0,170,255,.22), transparent 55%),
+        radial-gradient(900px 520px at 80% 90%, rgba(124,92,255,.18), transparent 55%),
+        linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.78)),
+        var(--bg);
+      background-size: cover;
+      background-position: center;
+      background-repeat:no-repeat;
+      filter:saturate(1.05) contrast(1.05);
+      z-index:-2;
+    }
+    body::after{
+      content:"";
+      position:fixed; inset:0;
+      background: linear-gradient(135deg, rgba(0,0,0,.20), rgba(0,0,0,.70));
+      z-index:-1;
+    }
+
+    .wrap{width:min(980px, 92vw)}
+    .shell{
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: 26px;
+      padding: 22px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 18px 60px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.08);
+      position:relative;
+      overflow:hidden;
+    }
+    .shell::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(520px 260px at 15% 0%, rgba(0,170,255,.16), transparent 60%),
+        radial-gradient(520px 260px at 85% 100%, rgba(124,92,255,.12), transparent 60%);
+      pointer-events:none;
+      opacity:.9;
+    }
+    .shell > *{position:relative; z-index:1}
+
+    .head{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding:10px 0 14px}
+    .pfp{width:118px;height:118px;border-radius:999px;border:2px solid rgba(255,255,255,.16);box-shadow: 0 0 28px rgba(0,170,255,.35);background: var(--pfp) center/cover no-repeat}
+    .title{font-size:2.55rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase}
+    .subtitle{max-width:760px;color:var(--text);line-height:1.7}
+
+    .nav{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:4px}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      padding:12px 16px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      color:#fff;text-decoration:none;
+      font-weight:800;font-size:.98rem;
+      transition:transform .18s ease, background .18s ease, border-color .18s ease;
+      backdrop-filter: blur(10px);
+    }
+    .btn:hover{background: rgba(0,170,255,.16); border-color: rgba(0,170,255,.55); transform: translateY(-2px)}
+
+    .grid{margin-top:14px;display:grid;grid-template-columns: 1fr 1fr;gap:16px}
+    .card{
+      background: rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:22px;
+      padding:18px;
+      backdrop-filter: blur(12px);
+      position:relative;
+      overflow:hidden;
+    }
+    .card::after{content:"";position:absolute;inset:-2px;background: radial-gradient(520px 240px at 20% 0%, rgba(0,170,255,.14), transparent 62%);opacity:.9;pointer-events:none}
+    .card > *{position:relative;z-index:1}
+
+    .h3{font-size:1.25rem;font-weight:900;letter-spacing:.02em;margin-bottom:10px}
+    .muted{color:rgba(230,240,255,.75);line-height:1.7}
+    .qr{
+      width:min(320px, 85%);
+      aspect-ratio: 1/1;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.35);
+      display:grid;
+      place-items:center;
+      margin: 10px auto 8px;
+      overflow:hidden;
+    }
+    .qr img{width:100%;height:100%;object-fit:cover;display:block}
+
+    .copyRow{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:center;margin-top:10px}
+    .pill{
+      padding:10px 14px;border-radius:999px;
+      background: rgba(0,0,0,.35);
+      border:1px solid rgba(255,255,255,.12);
+      color:rgba(230,240,255,.86);
+      font-weight:800;
+      letter-spacing:.02em;
+    }
+    button.copy{
+      appearance:none;
+      border:none;
+      cursor:pointer;
+    }
+    .footer{margin-top:14px;text-align:center;color:rgba(220,240,255,.55);font-size:.95rem}
+
+    @media (max-width: 900px){ .grid{grid-template-columns:1fr} }
+    @media (max-width: 768px){ .title{font-size:2.15rem} .pfp{width:104px;height:104px} }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="shell">
+      <div class="head">
+        <div class="pfp" aria-label="Foto profil"></div>
+        <div class="title">Pembayaran</div>
+        <div class="subtitle">Scan QR / salin nomor tujuan. Setelah transfer, kirim bukti ke admin biar langsung diproses.</div>
+
+        <div class="nav">
+          <a class="btn" href="../index.html"><i class="fa-solid fa-house"></i> Home</a>
+          <a class="btn" href="produk.html"><i class="fa-solid fa-layer-group"></i> Katalog</a>
+          <a class="btn" href="order.html"><i class="fa-solid fa-bag-shopping"></i> Order</a>
+          <a class="btn" href="kontak.html"><i class="fa-brands fa-telegram"></i> Kontak</a>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <div class="h3"><i class="fa-solid fa-qrcode"></i> QRIS</div>
+          <div class="muted"></div>
+          <div class="qr">
+            <!-- Ganti URL gambar QRIS kamu di src bawah ini kalau sudah ada -->
+            <img src="https://files.catbox.moe/4dy2ja.jpeg" alt="QRIS" />
+          </div>
+          <div class="muted" style="text-align:center;">ᴋᴀʟᴀᴜ ǫʀ ᴛɪᴅᴀᴋ ᴍᴜɴᴄᴜʟ, ʀᴇғʀᴇsʜ ʜᴀʟᴀᴍᴀɴ ᴀᴛᴀᴜ ʜᴜʙᴜɴɢɪ ᴀᴅᴍɪɴ</div>
+        </div>
+
+        <div class="card">
+          <div class="h3"><i class="fa-solid fa-building-columns"></i> Transfer</div>
+          <div class="muted"></div>
+
+          <div class="copyRow" style="margin-top:14px">
+            <div class="pill" id="bankName">Dana</div>
+            <div class="pill" id="accName">A/N EDY SUBROTO</div>
+          </div>
+
+          <div class="copyRow">
+            <div class="pill" id="accNo">6281315465672</div>
+            <a class="btn" id="copyBtn" href="#" onclick="copyAcc(event)"><i class="fa-solid fa-copy"></i> Copy No. Rek</a>
+          </div>
+
+          <div class="copyRow" style="margin-top:12px">
+            <a class="btn" target="_blank" rel="noreferrer" href="https://wa.me/6283890074416?text=Halo%20Rayy%20Services%2C%20saya%20mau%20konfirmasi%20pembayaran."><i class="fa-brands fa-whatsapp"></i> Konfirmasi WA</a>
+            <a class="btn" target="_blank" rel="noreferrer" href="https://t.me/RayyAckerman"><i class="fa-brands fa-telegram"></i> Konfirmasi Telegram</a>
+          </div>
+
+          <div class="muted" style="margin-top:12px">
+            <b>Tips:</b> Kalau transfer beda nama pengirim, tulis juga nama pengirimnya supaya cepat dicek.
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">Rayy Services © <span id="y"></span> • Fast response • Support after sales</div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    async function copyAcc(e){
+      e.preventDefault();
+      const text = document.getElementById('accNo').textContent.trim();
+      try{
+        await navigator.clipboard.writeText(text);
+        const btn = document.getElementById('copyBtn');
+        const old = btn.innerHTML;
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied';
+        setTimeout(()=> btn.innerHTML = old, 1200);
+      }catch(err){
+        alert('Gagal copy. Silakan blok manual: ' + text);
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rayy Services</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root{
+      --bg: url('https://files.catbox.moe/q9e70e.jpg');
+      --pfp: url('https://files.catbox.moe/lenrjk.jpg');
+      --c: #00aaff;
+      --c2:#7c5cff;
+      --glass: rgba(255,255,255,.06);
+      --glass2: rgba(0,0,0,.35);
+      --border: rgba(0,170,255,.25);
+      --text: rgba(230,240,255,.82);
+    }
+
+    *{margin:0;padding:0;box-sizing:border-box}
+    html,body{height:100%}
+
+    body{
+      font-family:"Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:#fff;
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      overflow-x:hidden;
+      background: #05060a;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      position:relative;
+      isolation:isolate;
+    }
+    body::before{
+      content:"";
+      position:fixed; inset:0;
+      background:
+        radial-gradient(900px 520px at 20% 10%, rgba(0,170,255,.22), transparent 55%),
+        radial-gradient(900px 520px at 80% 90%, rgba(124,92,255,.18), transparent 55%),
+        linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.75)),
+        var(--bg);
+      background-size: cover;
+      background-position: center;
+      background-repeat:no-repeat;
+      filter:saturate(1.05) contrast(1.05);
+      z-index:-2;
+    }
+    body::after{
+      content:"";
+      position:fixed; inset:0;
+      background: linear-gradient(135deg, rgba(0,0,0,.25), rgba(0,0,0,.70));
+      z-index:-1;
+    }
+
+    /* LOADING */
+    #loading{
+      position:fixed;inset:0;
+      background: rgba(0,0,0,.92);
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      z-index:1000;
+      transition:opacity .45s ease;
+    }
+    .spinner{
+      width:72px;height:72px;
+      border:5px solid rgba(0,170,255,.12);
+      border-radius:999px;
+      border-top-color: var(--c);
+      animation:spin 1s linear infinite;
+      box-shadow:0 0 22px rgba(0,170,255,.45);
+      margin-bottom:18px;
+    }
+    .loading-text{
+      font-size:.98rem;
+      color: rgba(220,240,255,.72);
+      letter-spacing:.18em;
+      text-transform:uppercase;
+    }
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    /* LAYOUT */
+    .wrap{
+      width:min(920px, 92vw);
+      padding: 22px;
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: 26px;
+      padding: 26px;
+      backdrop-filter: blur(14px);
+      box-shadow:
+        0 18px 60px rgba(0,0,0,.45),
+        inset 0 1px 0 rgba(255,255,255,.08);
+      position:relative;
+      overflow:hidden;
+    }
+    .card::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(520px 260px at 15% 0%, rgba(0,170,255,.16), transparent 60%),
+        radial-gradient(520px 260px at 85% 100%, rgba(124,92,255,.12), transparent 60%);
+      pointer-events:none;
+      opacity:.9;
+    }
+    .card > *{position:relative; z-index:1;}
+
+    /* HEADER */
+    .top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:18px;
+    }
+    .profile{
+      display:flex; align-items:center; gap:14px;
+      min-width:0;
+    }
+    .avatar{
+      width:54px;height:54px;
+      border-radius:999px;
+      border:2px solid rgba(255,255,255,.18);
+      outline: 2px solid rgba(0,170,255,.35);
+      outline-offset: 2px;
+      background: var(--pfp);
+      background-size: cover;
+      background-position:center;
+      box-shadow: 0 10px 30px rgba(0,0,0,.40);
+      flex: 0 0 auto;
+    }
+    .who{
+      display:flex; flex-direction:column;
+      gap:2px;
+      min-width:0;
+    }
+    .who .name{
+      font-weight:900;
+      letter-spacing:.02em;
+      font-size:1.05rem;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .who .role{
+      font-size:.86rem;
+      color: rgba(230,240,255,.70);
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.22);
+      color: rgba(230,240,255,.84);
+      font-weight:700;
+      font-size:.92rem;
+      backdrop-filter: blur(10px);
+      user-select:none;
+    }
+    .pill i{color: var(--c)}
+
+    /* HERO */
+    .hero{ text-align:center; padding: 10px 8px 2px; }
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border:1px solid rgba(0,170,255,.22);
+      background: rgba(0,170,255,.08);
+      color: rgba(230,240,255,.84);
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      font-weight:800;
+      font-size:.78rem;
+    }
+    h1{
+      margin-top:14px;
+      font-size: clamp(2.2rem, 4.2vw, 3.2rem);
+      line-height:1.05;
+      font-weight: 900;
+      letter-spacing:.02em;
+      text-shadow: 0 14px 50px rgba(0,0,0,.55);
+    }
+    h1 .accent{
+      background: linear-gradient(90deg, #fff, var(--c));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color: transparent;
+    }
+    .tagline{
+      margin: 12px auto 0;
+      max-width: 720px;
+      color: var(--text);
+      line-height: 1.75;
+      font-size: 1.02rem;
+    }
+
+    /* MENU */
+    .menu{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap:14px;
+      width: min(560px, 100%);
+      margin: 22px auto 6px;
+    }
+    .menu a{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:12px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      color:#fff;
+      text-decoration:none;
+      font-weight: 800;
+      transition: transform .18s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease;
+      backdrop-filter: blur(10px);
+      opacity:0;
+      transform: translateY(10px);
+    }
+    .menu a.show{opacity:1;transform:translateY(0)}
+    .menu a i{color: var(--c)}
+    .menu a:hover{
+      transform: translateY(-2px);
+      background: rgba(0,170,255,.12);
+      border-color: rgba(0,170,255,.45);
+      box-shadow: 0 18px 40px rgba(0,0,0,.35);
+    }
+
+    /* FOOTER */
+    .footer{
+      margin-top: 18px;
+      text-align:center;
+      color: rgba(230,240,255,.62);
+      font-size: .92rem;
+    }
+    .footer b{color: rgba(255,255,255,.92)}
+
+    /* ANIMATION ENTER */
+    #content{opacity:0; transform: translateY(10px); transition: opacity .8s ease, transform .8s ease;}
+    #content.show{opacity:1; transform: translateY(0);}
+
+    @media (max-width: 680px){
+      .card{padding:20px;border-radius:22px}
+      .menu{grid-template-columns:1fr}
+      .pill{display:none}
+    }
+  </style>
+</head>
+<body>
+  <div id="loading" aria-label="Loading">
+    <div class="spinner"></div>
+    <div class="loading-text">𝐓𝐮𝐧𝐠𝐠𝐮 𝐒𝐞𝐛𝐞𝐧𝐭𝐚𝐫…</div>
+  </div>
+
+  <main class="wrap" id="content" role="main">
+    <section class="card">
+      <div class="top">
+        <div class="profile" aria-label="Profile">
+          <div class="avatar" role="img" aria-label="Foto profile"></div>
+          <div class="who">
+            <div class="name">𝐑𝐚𝐲 𝐒𝐭𝐨𝐫𝐞</div>
+            <div class="role">𝐋𝐚𝐲𝐚𝐧𝐚𝐧 𝐇𝐨𝐬𝐭𝐢𝐧𝐠 𝐃𝐚𝐧 𝐓𝐨𝐨𝐥𝐬</div>
+          </div>
+        </div>
+        <div class="pill"><i class="fa-solid fa-sparkles"></i> Premium & rapi</div>
+      </div>
+
+      <div class="hero">
+        <div class="kicker"><i class="fa-solid fa-bolt"></i> WELCOME TO</div>
+        <h1><span class="accent" id="type-title"></span></h1>
+        <p class="tagline" id="type-tagline">
+          𝐋𝐚𝐲𝐚𝐧𝐚𝐧 𝐝𝐢𝐠𝐢𝐭𝐚𝐥 𝐩𝐫𝐞𝐦𝐢𝐮𝐦 𝐮𝐧𝐭𝐮𝐤 𝐤𝐞𝐛𝐮𝐭𝐮𝐡𝐚𝐧 𝐩𝐞𝐫𝐬𝐨𝐧𝐚𝐥 𝐝𝐚𝐧 𝐤𝐨𝐦𝐮𝐧𝐢𝐭𝐚𝐬 𝐬𝐞𝐩𝐞𝐫𝐭𝐢 𝐩𝐚𝐧𝐞𝐥 𝐩𝐭𝐞𝐫𝐨𝐝𝐚𝐜𝐭𝐲𝐥 𝐛𝐨𝐭 𝐝𝐚𝐧 𝐰𝐞𝐛𝐬𝐢𝐭𝐞 𝐝𝐞𝐯𝐞𝐥𝐨𝐩𝐦𝐞𝐧𝐭,
+          𝐬𝐡𝐨𝐫𝐭𝐥𝐢𝐧𝐤 + 𝐚𝐧𝐚𝐥𝐲𝐭𝐢𝐜𝐬 𝐦𝐚𝐫𝐤𝐞𝐭𝐢𝐧𝐠, 𝐬𝐞𝐭𝐮𝐩 𝐕𝐏𝐒.
+        </p>
+      </div>
+
+      <nav class="menu" aria-label="Menu">
+        <a href="produk.html" id="m1"><i class="fas fa-layer-group"></i><span>𝐊𝐚𝐭𝐚𝐥𝐨𝐠</span></a>
+        <a href="order.html" id="m2"><i class="fas fa-bolt"></i><span>𝐎𝐫𝐝𝐞𝐫</span></a>
+        <a href="pembayaran.html" id="m3"><i class="fas fa-qrcode"></i><span>𝐏𝐞𝐦𝐛𝐚𝐲𝐚𝐫𝐚𝐧</span></a>
+        <a href="kontak.html" id="m4"><i class="fab fa-telegram"></i><span>𝐊𝐨𝐧𝐭𝐚𝐤</span></a>
+      </nav>
+
+      <div class="footer">
+        <p>ʀᴀʏ sᴛᴏʀᴇ  &copy; <span id="year"></span> • <b>sᴜᴘᴘᴏʀᴛ ᴀғᴛᴇʀ sᴀʟʟᴇs</b> • ᴀᴍᴀɴ ᴅᴀɴ ɴʏᴀᴍᴀɴ</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    function typeWriter(el, text, speed, done){
+      let i = 0;
+      el.textContent = '';
+      const tick = () => {
+        if(i < text.length){
+          el.textContent += text.charAt(i++);
+          setTimeout(tick, speed);
+        } else if (done){
+          done();
+        }
+      };
+      tick();
+    }
+
+    window.addEventListener('load', () => {
+      const loading = document.getElementById('loading');
+      const content = document.getElementById('content');
+      const title = document.getElementById('type-title');
+      const items = [document.getElementById('m1'), document.getElementById('m2'), document.getElementById('m3'), document.getElementById('m4')];
+
+      setTimeout(() => {
+        loading.style.opacity = '0';
+        setTimeout(() => {
+          loading.style.display = 'none';
+          content.classList.add('show');
+
+          typeWriter(title, 'レイストア', 55, () => {
+            items.forEach((it, idx) => setTimeout(() => it.classList.add('show'), 120 * idx));
+          });
+        }, 450);
+      }, 650);
+    });
+  </script>
+</body>
+</html>
